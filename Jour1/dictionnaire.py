@@ -3,7 +3,7 @@
 fr_ang = {
   "langage": "language",
   "fille": "girl",
-  "car": "voiture",
+  "voiture": "car",
   "ciel": "sky",
   "fenetre": "window"
 }
