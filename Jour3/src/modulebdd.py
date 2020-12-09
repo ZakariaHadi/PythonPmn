@@ -100,7 +100,7 @@ def listerCursus(conn):
 def listerEtudiant(conn):
     
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Matiere")
+    cur.execute("SELECT * FROM Etudiant")
 
     rows = cur.fetchall()
 
@@ -134,9 +134,9 @@ def modifierEtudiant(conn,newEtudiant):
                     prenomEtudiant = ?,
                     age = ?,
                     idCursus = ?
-                    WHERE id = ?'''
+                    WHERE idEtudiant = ?'''
         cur = conn.cursor()
-        cur.execute(sql,(newEtudiant['row'],newEtudiant['id']))
+        cur.execute(sql,(newEtudiant['row']+newEtudiant['id']))
         conn.commit()
 
 
@@ -183,7 +183,7 @@ def afficherEtudiantDeCursus(conn,nomCursus):
  
 def afficherMatiereCursus(conn,nomMatiere):
     cur = conn.cursor()
-    cur.execute("SELECT c.nomCursus FROM Cursus c join Matiere_Cursus mc on mc.idCursus=c.idCursus join Matiere m on mc.idMatiere = m.idMatiere where c.nomCursus = ?)", nomCursus)
+    cur.execute("SELECT c.nomCursus FROM Cursus c join Matiere_Cursus mc on mc.idCursus=c.idCursus join Matiere m on mc.idMatiere = m.idMatiere where m.nomMatiere = ?", nomMatiere)
     rows = cur.fetchall()
 
     for matiere in rows:
@@ -191,7 +191,7 @@ def afficherMatiereCursus(conn,nomMatiere):
 
 def afficherCursus(conn):
     cur = conn.cursor()
-    cur.execute("SELECT c.nomCursus FROM Cursus c where c.idCursus not in (select idCursus from matiere_cursus))")
+    cur.execute("SELECT c.nomCursus FROM Cursus c where c.idCursus not in (select idCursus from matiere_cursus)")
     rows = cur.fetchall()
 
     for matiere in rows:
