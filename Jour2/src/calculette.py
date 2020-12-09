@@ -9,7 +9,7 @@ class Calculette:
     def div(self,a,b):
         if b==0:
             print("opp is not possible !!")
-            return -1
+            raise ZeroDivisionError
         return a/b
         
     def sous(self,a,b):
