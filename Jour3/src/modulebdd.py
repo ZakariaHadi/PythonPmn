@@ -33,7 +33,7 @@ sql_create_tables = """ CREATE TABLE "Cursus" (
                                 FOREIGN KEY("idCursus") REFERENCES "Cursus"("idCursus"),
                                 PRIMARY KEY("idMatiere","idCursus")
                             );"""
-create_table(new_conn,sql_create_tables)
+#create_table(new_conn,sql_create_tables)
 
 
 #"#### 1) Add Data ##########################################"""
@@ -56,8 +56,8 @@ def ajouterCursus(conn,nomCursus):
 
 def ajouterEtudiant(conn,etudiant):
 
-    sql = ''' INSERT INTO Etudiant(nomEtudiant,prenomEtudiant,age)
-              VALUES(?,?,?) '''
+    sql = ''' INSERT INTO Etudiant(nomEtudiant,prenomEtudiant,age,idCursus)
+              VALUES(?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, etudiant)
     conn.commit()
@@ -65,8 +65,9 @@ def ajouterEtudiant(conn,etudiant):
 
 def lierCursusMatiere(conn,matieres_cursus):
 
-    sql = ''' INSERT INTO students VALUES(?,?,?) '''
+    sql = ''' INSERT INTO matiere_cursus VALUES(?,?) '''
     cur = conn.cursor()
+    print(matieres_cursus)
     cur.executemany(sql,matieres_cursus)
     conn.commit()
     return cur.lastrowid
@@ -132,6 +133,7 @@ def modifierEtudiant(conn,newEtudiant):
                     SET nomEtudiant = ?,
                     prenomEtudiant = ?,
                     age = ?,
+                    idCursus = ?
                     WHERE id = ?'''
         cur = conn.cursor()
         cur.execute(sql,(newEtudiant['row'],newEtudiant['id']))
@@ -157,6 +159,18 @@ def supprimerEtudiant(conn,idEtudiant):
     cur = conn.cursor()
     cur.execute(sql, (idEtudiant,))
     conn.commit()
+
+def vider_Bdd(conn):
+    c = conn.cursor()
+
+    c.execute('DELETE FROM matiere;',)
+    c.execute('DELETE FROM etudiant;',)
+    c.execute('DELETE FROM cursus;',)
+    c.execute('DELETE FROM Matiere_Cursus;',)
+
+    print(" all tables are truncated !!")
+    conn.commit()
+
 
 def afficherEtudiantDeCursus(conn,nomCursus):
     cur = conn.cursor()
