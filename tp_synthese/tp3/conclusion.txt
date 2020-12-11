@@ -1,0 +1,12 @@
+D'apres cet exemple d'application d'un paradigme d'heritage multiple, on peut déduire que l'appel des methodes depuis une instance d'une 
+classe fille (AGrave comme exp) suit le meme princie du polymorphisme d'un heritage simple càd la recherche de la methode equivalente depuis la classe applante vers 
+la classe mere et d'une maniere ascendente (fille => mere1 => gr-mere => ...). le langage python gére bien ce concepte puisque il commence le parcours
+en suivant l'ordre de placement des classes méres dans la declaration de la classe fille.
+Exmp : 
+    class AGrave(Accent,A,Abracadabra): et class AGrave(A,Accent,Abracadabra) n'auront pas le meme ordre d'appel des fonctions.
+    l'ordre du parcours est:  Accent => mere de (Accent) => [mere2 de (Accent) if exists] => ... => 
+                              A => mere de (A) => [mere de (A) if exists] => ... => 
+                              Abracadabra  => mere de Abracadabra => mere2 de Abracadabra if exists] => ... 
+
+L'utilisation de l'heritage multiple comme une solution dans une architecture technique reste tres critique et il peut provoquer une ambiguité 
+conceptuelle et réduire le taux d'évolutivité lors de la production/maintenance de la solution.

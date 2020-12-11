@@ -33,6 +33,8 @@ lierCursusMatiere(new_conn,[
 # List db data
 listerMatieres(new_conn)
 listerCursus(new_conn)
+
+print('here => ')
 listerEtudiant(new_conn)
 
 # Modify the fourth etudiant

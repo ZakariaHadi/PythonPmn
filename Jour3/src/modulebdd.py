@@ -98,14 +98,14 @@ def listerCursus(conn):
 
 
 def listerEtudiant(conn):
-    
     cur = conn.cursor()
     cur.execute("SELECT * FROM Etudiant")
+    desc = cur.description
+    column_names = [col[0] for col in desc]
+    data = [dict(zip(column_names, row))  
+        for row in cur.fetchall()]
 
-    rows = cur.fetchall()
-
-    for etud in rows:
-        print(etud)
+    print(data)
 
 #"#### 3) Modify Data ##########################################"""
 
